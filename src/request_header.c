@@ -102,6 +102,12 @@ int h3_request_header_parse(RequestHeader *header, const char *body, int bodyLen
 
     // Parse Header Fields Here
     do {
+        // add by yinsong
+        // some request header maybe make it overflow here!
+        if(header->HeaderSize >= MAX_HEADER_SIZE-1){                                                            
+            break;                                                                                              
+        }                                                                                                       
+        // add end 
         HeaderField *field = & header->Fields[ header->HeaderSize++ ];
         // HeaderField *field = h3_header_field_new();
         field->FieldName = p; // start of a header field name
